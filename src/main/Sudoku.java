@@ -40,6 +40,7 @@ public class Sudoku {
 	{
 		JFrame holderPanel = new JFrame("Sudoku");
 		Border lineBorder = BorderFactory.createLineBorder(Color.black);
+		holderPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		holderPanel.setVisible(true);
 		JPanel gamePanel = new JPanel();
 		GridLayout gl = new GridLayout(3,3);
