@@ -1,6 +1,10 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Sudoku {
 
@@ -30,8 +34,12 @@ public class Sudoku {
 	
 	public static void main(String[] args)
 	{
-		
-		
+		/**JFrame holderPanel = new JFrame();
+		holderPanel.setVisible(true);
+		ArrayList<JPanel> sudokuSections = new ArrayList<>();
+		JPanel gamePanel = new JPanel();
+		holderPanel.add(gamePanel);
+		**/
 		
 		for (int i = 0; i < sudokuGrid.length; i++)
 		{
