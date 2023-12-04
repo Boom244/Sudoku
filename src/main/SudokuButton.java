@@ -1,10 +1,11 @@
 package main;
 
-import java.awt.Button;
+
 import java.awt.Dimension;
+import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class SudokuButton extends Button {
+public class SudokuButton extends JButton {
 
 	public SudokuButton()  {
 		this.setPreferredSize(50,50);

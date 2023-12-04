@@ -1,10 +1,14 @@
 package main;
 
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 public class Sudoku {
 
@@ -34,17 +38,28 @@ public class Sudoku {
 	
 	public static void main(String[] args)
 	{
-		/**JFrame holderPanel = new JFrame();
+		JFrame holderPanel = new JFrame("Sudoku");
+		Border lineBorder = BorderFactory.createLineBorder(Color.black);
 		holderPanel.setVisible(true);
-		ArrayList<JPanel> sudokuSections = new ArrayList<>();
 		JPanel gamePanel = new JPanel();
+		GridLayout gl = new GridLayout(3,3);
 		holderPanel.add(gamePanel);
-		**/
-		
-		for (int i = 0; i < sudokuGrid.length; i++)
+		gamePanel.setLayout(gl);
+		for (int i = 0; i < 9; i++)
 		{
-			System.out.println(sanitizeArray(sudokuGrid[i],i));
+			JPanel panel = new JPanel();
+			panel.setLayout(gl);
+			panel.setBorder(lineBorder);
+			for (int j = 0; j < 9; j++)
+			{
+				SudokuButton button = new SudokuButton();
+				panel.add(button);
+			}
+			gamePanel.add(panel);
 		}
+		holderPanel.add(gamePanel);
+		holderPanel.pack();
+		
 		
 	}
 	/**
