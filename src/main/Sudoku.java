@@ -51,9 +51,11 @@ public class Sudoku {
 			JPanel panel = new JPanel();
 			panel.setLayout(gl);
 			panel.setBorder(lineBorder);
+			int[] ordered3x3 = getOrdered3x3(i);
 			for (int j = 0; j < 9; j++)
 			{
 				SudokuButton button = new SudokuButton();
+				button.setText(Integer.toString(ordered3x3[j]));
 				panel.add(button);
 			}
 			gamePanel.add(panel);
@@ -80,5 +82,20 @@ public class Sudoku {
 			}
 		}
 		return String.join(" ", arr);
+	}
+	
+	public static int[] getOrdered3x3(int panelOrder)
+	{
+		int[] ordered3x3 = new int[9];
+		int row3x3 = (int)Math.floor(panelOrder / 3);
+		int col3x3 = ((panelOrder - row3x3) % 3) * 3;
+		int count = 0;
+		for (int i = col3x3; i < col3x3 + 3; i++)
+			for (int j = row3x3; j < row3x3 + 3; j++)
+			{
+				ordered3x3[count] = sudokuGrid[i][j];
+				count++;
+			}
+		return ordered3x3;
 	}
 }
