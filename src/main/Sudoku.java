@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Desktop.Action;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import javax.swing.border.Border;
 public class Sudoku {
 
 	
-	static boolean[][] booleans = {
+	 boolean[][] booleans = {
 			{false, true, false, true, false, true,true, false, false},
 			{false, false, false, true, false, true,true, true, true},
 			{false, true, false, false, false, true,false, true, true},
@@ -25,7 +26,7 @@ public class Sudoku {
 			{true, false, true, true, false, false,true, true, true},
 	}; 
 	
-	static int[][] sudokuGrid = {
+	 int[][] sudokuGrid = {
 			{5,4,9,6,1,3,7,8,2},
 			{8,3,1,2,5,7,9,6,4},
 			{6,7,2,9,8,4,1,5,3},
@@ -36,26 +37,31 @@ public class Sudoku {
 			{1,5,7,8,3,2,6,4,9},
 			{3,9,6,7,4,5,8,2,1}};
 	
-	public static void main(String[] args)
+	public Sudoku()
 	{
 		JFrame holderPanel = new JFrame("Sudoku");
 		Border lineBorder = BorderFactory.createLineBorder(Color.black);
 		holderPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		holderPanel.setVisible(true);
 		JPanel gamePanel = new JPanel();
+		SudokuButton[][] buttons = new SudokuButton[9][9];
 		GridLayout gl = new GridLayout(3,3);
 		holderPanel.add(gamePanel);
 		gamePanel.setLayout(gl);
+		SudokuMouseListener ml = new SudokuMouseListener(this);
+		int squareRow, squareCol;
 		for (int i = 0; i < 9; i++)
 		{
 			JPanel panel = new JPanel();
 			panel.setLayout(gl);
 			panel.setBorder(lineBorder);
-			int[] ordered3x3 = getOrdered3x3(i);
+			squareRow = (int) Math.floor(i / 3);
+			squareCol = i % 3;
+			int[] ordered3x3 = getOrdered3x3(i,squareRow,squareCol);
 			for (int j = 0; j < 9; j++)
 			{
-				SudokuButton button = new SudokuButton();
-				button.setText(Integer.toString(ordered3x3[j]));
+				SudokuButton button = new SudokuButton(ordered3x3[j], ordered3x3[j] != 0, ml);
+				buttons[squareRow*3 + ((int) Math.floor(i / 3))][squareCol*3 + (i % 3)] = button;
 				panel.add(button);
 			}
 			gamePanel.add(panel);
@@ -65,37 +71,21 @@ public class Sudoku {
 		
 		
 	}
-	/**
-	 * Utility function for making arrays printable and viewable
-	 * @param array the array you want to make printable
-	 * @return a nice, space-separated String representation of an array with no brackets
-	 */
-	public static String sanitizeArray(int[] array, int index)
-	{
-		String[] arr = Arrays.toString(array).replaceAll("\\[|\\]|,", "").split("\\s+");
-		
-		for (int i = 0; i < arr.length; i++)
-		{
-			if (booleans[index][i])
-			{
-				arr[i] = "-";
-			}
-		}
-		return String.join(" ", arr);
+	
+	public static void main(String[] args) {
+		Sudoku game = new Sudoku();
 	}
 	
-	public static int[] getOrdered3x3(int panelOrder)
+	public int[] getOrdered3x3(int panelOrder,int squareRow,int squareCol)
 	{
 		int[] ordered3x3 = new int[9];
-		int row3x3 = (int)Math.floor(panelOrder / 3);
-		int col3x3 = ((panelOrder - row3x3) % 3) * 3;
-		int count = 0;
-		for (int i = col3x3; i < col3x3 + 3; i++)
-			for (int j = row3x3; j < row3x3 + 3; j++)
-			{
-				ordered3x3[count] = sudokuGrid[i][j];
-				count++;
-			}
+		int regionalX, regionalY;
+		for (int i = 0; i < 9; i++)
+		{					   
+			regionalX = (squareRow * 3) + ((int) Math.floor(i / 3)); //square row * 3 + inner row calculation,
+			regionalY = (squareCol*3) + (i % 3); //square col * 3 + inner col calculation
+			ordered3x3[i] = !booleans[regionalX][regionalY] ? sudokuGrid[regionalX][regionalY] : 0;
+		}
 		return ordered3x3;
 	}
 }
