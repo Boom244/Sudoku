@@ -33,6 +33,7 @@ public class SudokuButton extends JButton {
 	public void setDisplayedNumber(int displayNum) {
 		if (this.locked) {return;}
 		this.displayed = true;
+		this.displayedNumber = displayNum;
 		this.setText(Integer.toString(displayNum));
 		setHighlighted(displayNum == this.number);
 		

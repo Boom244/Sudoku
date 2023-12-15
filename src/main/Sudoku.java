@@ -35,7 +35,7 @@ public class Sudoku {
 			{1,5,7,8,3,2,6,4,9},
 			{3,9,6,7,4,5,8,2,1}};
 	
-	 int currentCaptiveInteger;
+	private int currentCaptiveInteger;
 	
 	public Sudoku()
 	{
@@ -93,7 +93,7 @@ public class Sudoku {
 	}
 	
 	public static void main(String[] args) {
-		Sudoku game = new Sudoku();
+		new Sudoku(); //in theory no need to store it anywhere
 	}
 	
 }
