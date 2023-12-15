@@ -1,16 +1,12 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Desktop.Action;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.border.Border;
 
 public class Sudoku {
@@ -38,7 +34,7 @@ public class Sudoku {
 			{2,8,4,1,9,6,3,7,5},
 			{1,5,7,8,3,2,6,4,9},
 			{3,9,6,7,4,5,8,2,1}};
-	 
+	
 	 int currentCaptiveInteger;
 	
 	public Sudoku()
@@ -58,6 +54,7 @@ public class Sudoku {
 		JPanel inputGridPanel = new JPanel();
 		inputGridPanel.setLayout(gl);
 		int squareRow, squareCol;
+		int regionalX,regionalY;
 		for (int i = 0; i < 9; i++)
 		{
 			JPanel panel = new JPanel();
@@ -65,10 +62,12 @@ public class Sudoku {
 			panel.setBorder(lineBorder);
 			squareRow = (int) Math.floor(i / 3);
 			squareCol = i % 3;
-			int[] ordered3x3 = getOrdered3x3(i,squareRow,squareCol);
+			
 			for (int j = 0; j < 9; j++)
 			{
-				SudokuButton button = new SudokuButton(ordered3x3[j], ordered3x3[j] != 0, ml, false,ordered3x3[j] != 0);
+				regionalX = squareRow*3 + ((int) Math.floor(j / 3));
+				regionalY =  squareCol*3 + (j % 3);
+				SudokuButton button = new SudokuButton(sudokuGrid[regionalX][regionalY], !booleans[regionalX][regionalY], ml, false,!booleans[regionalX][regionalY]);
 				buttons[squareRow*3 + ((int) Math.floor(i / 3))][squareCol*3 + (i % 3)] = button;
 				panel.add(button);
 			}
@@ -97,16 +96,4 @@ public class Sudoku {
 		Sudoku game = new Sudoku();
 	}
 	
-	public int[] getOrdered3x3(int panelOrder,int squareRow,int squareCol)
-	{
-		int[] ordered3x3 = new int[9];
-		int regionalX, regionalY;
-		for (int i = 0; i < 9; i++)
-		{					   
-			regionalX = (squareRow * 3) + ((int) Math.floor(i / 3)); //square row * 3 + inner row calculation,
-			regionalY = (squareCol*3) + (i % 3); //square col * 3 + inner col calculation
-			ordered3x3[i] = !booleans[regionalX][regionalY] ? sudokuGrid[regionalX][regionalY] : 0;
-		}
-		return ordered3x3;
-	}
 }
