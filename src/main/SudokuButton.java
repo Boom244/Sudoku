@@ -7,7 +7,7 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 
-@SuppressWarnings("serial")
+
 public class SudokuButton extends JButton {
 
 	Font btnFont = new Font("Bahnschrift", Font.BOLD, 24);

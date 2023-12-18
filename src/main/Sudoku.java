@@ -36,10 +36,12 @@ public class Sudoku {
 	 SudokuButton[][] buttons;
 	
 	private int currentCaptiveInteger;
+	private boolean gameWon;
+	private JFrame holderPanel;
 	
 	public Sudoku()
 	{
-		JFrame holderPanel = new JFrame("Sudoku");
+		holderPanel = new JFrame("Sudoku");
 		Border lineBorder = BorderFactory.createLineBorder(Color.black);
 		holderPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		holderPanel.setVisible(true);
@@ -101,7 +103,9 @@ public class Sudoku {
 				}
 			}
 		}
-		
+
+		gameWon = true;
+
 		Thread winAnimation = new Thread(){
 			
 			public void run()
@@ -112,7 +116,7 @@ public class Sudoku {
 					for (int j = 0; j < buttons[i].length; j++)
 					{
 						try {
-								Thread.sleep(250);
+								Thread.sleep(100);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
@@ -120,11 +124,16 @@ public class Sudoku {
 							buttons[i][j].locked = true;
 					}
 				}
+				holderPanel.setTitle("Game Over - You Win!");
 			}	
 		};
 		winAnimation.start();
 	}
 	
+	public boolean isGameWon() {
+		return gameWon;
+	}
+
 	public int getCurrentCaptiveInteger() {
 		return currentCaptiveInteger;
 	}
