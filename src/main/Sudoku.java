@@ -2,8 +2,6 @@ package main;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-
-
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,6 +32,8 @@ public class Sudoku {
 			{2,8,4,1,9,6,3,7,5},
 			{1,5,7,8,3,2,6,4,9},
 			{3,9,6,7,4,5,8,2,1}};
+	 
+	 SudokuButton[][] buttons;
 	
 	private int currentCaptiveInteger;
 	
@@ -45,12 +45,13 @@ public class Sudoku {
 		holderPanel.setVisible(true);
 		
 		JPanel gamePanel = new JPanel();
-		SudokuButton[][] buttons = new SudokuButton[9][9];
+		buttons = new SudokuButton[9][9];
 		SudokuButton[] inputGridButtons = new SudokuButton[9];
 		GridLayout gl = new GridLayout(3,3);
 		holderPanel.add(gamePanel);
 		gamePanel.setLayout(gl);
 		SudokuMouseListener ml = new SudokuMouseListener(this);
+		GridButtonMouseListener gbml = new GridButtonMouseListener(this);
 		JPanel inputGridPanel = new JPanel();
 		inputGridPanel.setLayout(gl);
 		int squareRow, squareCol;
@@ -67,14 +68,14 @@ public class Sudoku {
 			{
 				regionalX = squareRow*3 + ((int) Math.floor(j / 3));
 				regionalY =  squareCol*3 + (j % 3);
-				SudokuButton button = new SudokuButton(sudokuGrid[regionalX][regionalY], !booleans[regionalX][regionalY], ml, false,!booleans[regionalX][regionalY]);
-				buttons[squareRow*3 + ((int) Math.floor(i / 3))][squareCol*3 + (i % 3)] = button;
+				SudokuButton button = new SudokuButton(sudokuGrid[regionalX][regionalY], !booleans[regionalX][regionalY], ml,!booleans[regionalX][regionalY]);
+				buttons[regionalX][regionalY] = button;
 				panel.add(button);
 			}
 			gamePanel.add(panel);
-			SudokuButton inputGridButton = new SudokuButton(i+1,true,ml,true,true);
-			inputGridPanel.add(inputGridButton);
-			inputGridButtons[i] = inputGridButton;
+			InputGridButton gridButton = new InputGridButton(i+1,gbml);
+			inputGridPanel.add(gridButton);
+			inputGridButtons[i] = gridButton;
 		}
 		holderPanel.add(gamePanel);
 		holderPanel.add(inputGridPanel);
@@ -86,6 +87,42 @@ public class Sudoku {
 	
 	public void setCurrentCaptiveInteger(int currentCaptiveInteger) {
 		this.currentCaptiveInteger = currentCaptiveInteger;
+	}
+	
+	public void verifyWin()
+	{
+		for (int i = 0; i < buttons.length; i++)
+		{
+			for (int j = 0; j < buttons[i].length; j++)
+			{
+				if (!buttons[i][j].locked && !buttons[i][j].highlighted) 
+				{
+					return;
+				}
+			}
+		}
+		
+		Thread winAnimation = new Thread(){
+			
+			public void run()
+			{
+				//If we aren't returned, the game's been won
+				for (int i = 0; i < buttons.length; i++)
+				{
+					for (int j = 0; j < buttons[i].length; j++)
+					{
+						try {
+								Thread.sleep(250);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							buttons[i][j].setHighlighted(true);
+							buttons[i][j].locked = true;
+					}
+				}
+			}	
+		};
+		winAnimation.start();
 	}
 	
 	public int getCurrentCaptiveInteger() {

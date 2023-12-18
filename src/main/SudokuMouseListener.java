@@ -15,20 +15,10 @@ public class SudokuMouseListener implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		SudokuButton btn = (SudokuButton)e.getSource();
-		if (btn.isInputBtn)
+		if (!btn.locked)
 		{
-			this.game.setCurrentCaptiveInteger(btn.number);
-			if (captiveBtn != null)
-			{
-				captiveBtn.setHighlighted(false);
-			}
-			btn.setHighlighted(true);
-			captiveBtn = btn;
-		}else {
-			if (!btn.locked)
-			{
-				btn.setDisplayedNumber(this.game.getCurrentCaptiveInteger());
-			}
+			btn.setDisplayedNumber(this.game.getCurrentCaptiveInteger());
+			game.verifyWin();
 		}
 		
 	}
