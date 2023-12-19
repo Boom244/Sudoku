@@ -17,6 +17,7 @@ public class SudokuButton extends JButton {
 	boolean isInputBtn;
 	boolean highlighted;
 	boolean locked;
+	SudokuMouseListener listener;
 	public SudokuButton(int number, boolean displayed, SudokuMouseListener ml, boolean locked)
 	{
 		this.setPreferredSize(50,50);
@@ -24,6 +25,7 @@ public class SudokuButton extends JButton {
 		this.setFont(btnFont);
 		this.number = number;
 		this.addMouseListener(ml);
+		this.listener = ml;
 		this.displayed = displayed;
 		this.setText(this.displayed ? Integer.toString(number) : "");
 		this.locked = locked;
@@ -31,6 +33,13 @@ public class SudokuButton extends JButton {
 	
 	public void setDisplayedNumber(int displayNum) {
 		if (this.locked) {return;}
+		if (this.number == this.displayedNumber && displayNum != this.number)
+		{
+			this.listener.game.addSolves(1);
+		} else if (this.number == displayNum && this.displayedNumber != this.number)
+		{
+			this.listener.game.addSolves(-1);
+		}
 		this.displayed = true;
 		this.displayedNumber = displayNum;
 		this.setText(Integer.toString(displayNum));

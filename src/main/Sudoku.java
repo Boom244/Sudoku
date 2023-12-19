@@ -34,6 +34,8 @@ public class Sudoku {
 			{3,9,6,7,4,5,8,2,1}};
 	 
 	 SudokuButton[][] buttons;
+	 
+	private int solvesUntilWin = 0; 
 	
 	private int currentCaptiveInteger;
 	private boolean gameWon;
@@ -72,6 +74,7 @@ public class Sudoku {
 				regionalY =  squareCol*3 + (j % 3);
 				SudokuButton button = new SudokuButton(sudokuGrid[regionalX][regionalY], !booleans[regionalX][regionalY], ml,!booleans[regionalX][regionalY]);
 				buttons[regionalX][regionalY] = button;
+				solvesUntilWin += (booleans[regionalX][regionalY] ? 1 : 0);
 				panel.add(button);
 			}
 			gamePanel.add(panel);
@@ -91,19 +94,15 @@ public class Sudoku {
 		this.currentCaptiveInteger = currentCaptiveInteger;
 	}
 	
+	public void addSolves(int increment) {
+		this.solvesUntilWin += increment;
+
+	}
+	
 	public void verifyWin()
 	{
-		for (int i = 0; i < buttons.length; i++)
-		{
-			for (int j = 0; j < buttons[i].length; j++)
-			{
-				if (!buttons[i][j].locked && !buttons[i][j].highlighted) 
-				{
-					return;
-				}
-			}
-		}
-
+		if (this.solvesUntilWin != 0) {return;}
+		
 		gameWon = true;
 
 		Thread winAnimation = new Thread(){
@@ -111,17 +110,20 @@ public class Sudoku {
 			public void run()
 			{
 				//If we aren't returned, the game's been won
-				for (int i = 0; i < buttons.length; i++)
+				for (SudokuButton[] row: buttons)
 				{
-					for (int j = 0; j < buttons[i].length; j++)
+					for (SudokuButton button:row)
 					{
-						try {
+						if (!button.highlighted)
+						{
+							try {
 								Thread.sleep(100);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
-							buttons[i][j].setHighlighted(true);
-							buttons[i][j].locked = true;
+						}
+							button.setHighlighted(true);
+							button.locked = true;
 					}
 				}
 				holderPanel.setTitle("Game Over - You Win!");
