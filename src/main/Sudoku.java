@@ -64,7 +64,7 @@ public class Sudoku {
 	/**
 	 * The current captive integer of the class. This will be applied to blank buttons in the array upon clicking.
 	 */
-	private int currentCaptiveInteger;
+	private int currentCaptiveInteger = 1;
 	
 	/**
 	 * The boolean that determines whether or not the game is won. Used to determine whether to sink input in an active game.
@@ -81,7 +81,7 @@ public class Sudoku {
 		Border lineBorder = BorderFactory.createLineBorder(Color.black);
 		holderPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		holderPanel.setVisible(true);
-		
+		holderPanel.setResizable(false);
 		JPanel gamePanel = new JPanel();
 		buttons = new SudokuButton[9][9];
 		SudokuButton[] inputGridButtons = new SudokuButton[9];
@@ -121,12 +121,17 @@ public class Sudoku {
 		holderPanel.setLayout(new GridLayout(1,2));
 		holderPanel.pack();
 		
+		inputGridButtons[0].setHighlighted(true);
+		gbml.captiveBtn = inputGridButtons[0];
+		
 		//pencil cursor
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Image image = toolkit.getImage("src/resources/pencil_cursor.png");
 		Cursor c = toolkit.createCustomCursor(image , new Point(gamePanel.getX(), gamePanel.getY()), "img");
 		gamePanel.setCursor(c);
 		
+		//icon
+		holderPanel.setIconImage(toolkit.getImage("src/resources/icon.png"));
 	}
 	
 	public void setCurrentCaptiveInteger(int currentCaptiveInteger) {
@@ -151,7 +156,7 @@ public class Sudoku {
 		gameWon = true;
 
 		Thread winAnimation = new Thread(){
-			
+			@Override
 			public void run()
 			{
 				//If we aren't returned, the game's been won
