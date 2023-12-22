@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 /**
  * Sudoku game class. The holder for all the important variables and stuff needed to make the game run at its core.
@@ -23,16 +24,27 @@ public class Sudoku {
 	 /**
 	 * Boolean 2D matrix that determines whether a button's number is invisible at runtime.
 	 */
+//	boolean[][] booleans = {
+//			{false, true, false, true, false, true,true, false, false},
+//			{false, false, false, true, false, true,true, true, true},
+//			{false, true, false, false, false, true,false, true, true},
+//			{false, false, true, false, true, false,false, false, true},
+//			{false, false, true, false, false, false,true, true, false},
+//			{true, true, true, false, false, true,true, true, false},
+//			{true, false, true, true, false, false,false, true, false},
+//			{true, true, false, true, false, true,false, true, true},
+//			{true, false, true, true, false, false,true, true, true},
+//	}; 
 	boolean[][] booleans = {
-			{false, true, false, true, false, true,true, false, false},
-			{false, false, false, true, false, true,true, true, true},
-			{false, true, false, false, false, true,false, true, true},
-			{false, false, true, false, true, false,false, false, true},
-			{false, false, true, false, false, false,true, true, false},
-			{true, true, true, false, false, true,true, true, false},
-			{true, false, true, true, false, false,false, true, false},
-			{true, true, false, true, false, true,false, true, true},
-			{true, false, true, true, false, false,true, true, true},
+			{false, false, false, false, false, false,false, false, false},
+			{false, false, false, false, false, false,false, false, false},
+			{false, false, false, false, false, false,false, false, false},
+			{false, false, false, false, false, false,false, false, false},
+			{false, false, false, false, true, false,false, false, false},
+			{false, false, false, false, false, false,false, false, false},
+			{false, false, false, false, false, false,false, false, false},
+			{false, false, false, false, false, false,false, false, false},
+			{false, false, false, false, false, false,false, false, false},
 	}; 
 	
 	
@@ -106,7 +118,7 @@ public class Sudoku {
 			{
 				regionalX = squareRow*3 + ((int) Math.floor(j / 3));
 				regionalY =  squareCol*3 + (j % 3);
-				SudokuButton button = new SudokuButton(sudokuGrid[regionalX][regionalY], !booleans[regionalX][regionalY], ml,!booleans[regionalX][regionalY]);
+				SudokuButton button = new SudokuButton(sudokuGrid[regionalX][regionalY], !booleans[regionalX][regionalY], ml);
 				buttons[regionalX][regionalY] = button;
 				solvesUntilWin += (booleans[regionalX][regionalY] ? 1 : 0);
 				panel.add(button);
@@ -116,6 +128,8 @@ public class Sudoku {
 			inputGridPanel.add(gridButton);
 			inputGridButtons[i] = gridButton;
 		}
+		
+		inputGridPanel.setBorder(new EmptyBorder(50,50,50,50));
 		holderPanel.add(gamePanel);
 		holderPanel.add(inputGridPanel);
 		holderPanel.setLayout(new GridLayout(1,2));
@@ -155,31 +169,8 @@ public class Sudoku {
 		
 		gameWon = true;
 
-		Thread winAnimation = new Thread(){
-			@Override
-			public void run()
-			{
-				//If we aren't returned, the game's been won
-				for (SudokuButton[] row: buttons)
-				{
-					for (SudokuButton button:row)
-					{
-						if (!button.highlighted)
-						{
-							try {
-								Thread.sleep(100);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-						}
-							button.setHighlighted(true);
-							button.locked = true;
-					}
-				}
-				holderPanel.setTitle("Game Over - You Win!");
-			}	
-		};
-		winAnimation.start();
+		new WinRoutine(this).start();
+		holderPanel.setTitle("Game Over - You Win!");
 	}
 	
 	/**

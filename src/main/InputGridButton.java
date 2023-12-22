@@ -13,7 +13,7 @@ public class InputGridButton extends SudokuButton { //this class only exists bec
 	 * @param ml The GridButtonMouseListener to handle mouse events for the button.
 	 */
 	public InputGridButton(int displayNumber, GridButtonMouseListener ml) {
-		super(displayNumber,true,ml,true);
+		super(displayNumber,true,ml);
 	}
 
 }
