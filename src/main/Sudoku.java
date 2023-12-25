@@ -24,27 +24,16 @@ public class Sudoku {
 	 /**
 	 * Boolean 2D matrix that determines whether a button's number is invisible at runtime.
 	 */
-//	boolean[][] booleans = {
-//			{false, true, false, true, false, true,true, false, false},
-//			{false, false, false, true, false, true,true, true, true},
-//			{false, true, false, false, false, true,false, true, true},
-//			{false, false, true, false, true, false,false, false, true},
-//			{false, false, true, false, false, false,true, true, false},
-//			{true, true, true, false, false, true,true, true, false},
-//			{true, false, true, true, false, false,false, true, false},
-//			{true, true, false, true, false, true,false, true, true},
-//			{true, false, true, true, false, false,true, true, true},
-//	}; 
 	boolean[][] booleans = {
-			{false, false, false, false, false, false,false, false, false},
-			{false, false, false, false, false, false,false, false, false},
-			{false, false, false, false, false, false,false, false, false},
-			{false, false, false, false, false, false,false, false, false},
-			{false, false, false, false, true, false,false, false, false},
-			{false, false, false, false, false, false,false, false, false},
-			{false, false, false, false, false, false,false, false, false},
-			{false, false, false, false, false, false,false, false, false},
-			{false, false, false, false, false, false,false, false, false},
+			{false, true, false, true, false, true,true, false, false},
+			{false, false, false, true, false, true,true, true, true},
+			{false, true, false, false, false, true,false, true, true},
+			{false, false, true, false, true, false,false, false, true},
+			{false, false, true, false, false, false,true, true, false},
+			{true, true, true, false, false, true,true, true, false},
+			{true, false, true, true, false, false,false, true, false},
+			{true, true, false, true, false, true,false, true, true},
+			{true, false, true, true, false, false,true, true, true},
 	}; 
 	
 	

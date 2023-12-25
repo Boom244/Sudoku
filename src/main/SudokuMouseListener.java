@@ -25,29 +25,29 @@ public class SudokuMouseListener implements MouseListener {
 		this.game = game;
 	}
 
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+	
+		
+	}
+	
 	/**
-	 * Invoked when the mouse button is clicked on a SudokuButton.
+	 * Invoked when the mouse button is pressed on a SudokuButton.
 	 * Handles the mouse click event by setting the displayed number on the button,
 	 * updating the game's solves count, and verifying if the game is won.
 	 *
 	 * @param e The MouseEvent object containing information about the event.
 	 */
 	@Override
-	public void mouseClicked(MouseEvent e) {
-	
+	public void mousePressed(MouseEvent e) {
 		SudokuButton btn = (SudokuButton)e.getSource();
 		if (!btn.locked)
 		{
 			int winLoseIncrement = btn.setDisplayedNumber(game.getCurrentCaptiveInteger());
 			game.addSolves(winLoseIncrement);
 			game.verifyWin();
-		}
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-
+		}	
 
 	}
 

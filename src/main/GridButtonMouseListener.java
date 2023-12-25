@@ -23,11 +23,11 @@ public class GridButtonMouseListener extends SudokuMouseListener {
 		}
 		
 		/**
-		 * Handles the mouse click event for the InputGridButton.
+		 * Handles the mouse press event for the InputGridButton.
 		 * @param e The MouseEvent object containing information about the event.
 		 */
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void mousePressed(MouseEvent e) {
 			if (this.game.isGameWon()) {return;}
 			InputGridButton btn = (InputGridButton)e.getSource();
 			this.game.setCurrentCaptiveInteger(btn.number);

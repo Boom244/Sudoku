@@ -2,13 +2,25 @@ package main;
 
 import java.awt.Color;
 
+/**
+ * Threaded routine animation for winning the game.
+ */
 public class WinRoutine extends Thread {
-	
+	/**
+	 * The instance of the current Sudoku game.
+	 */
 	Sudoku game;
+	/**
+	 * Constructor.
+	 * @param game The instance of the current Sudoku game.
+	 */
 	public WinRoutine(Sudoku game){
 		this.game = game;
 	}
 	
+	/**
+	 * Thread functionality. Changes colors of all Sudoku buttons to gold.
+	 */
 	@Override
 	public void run()
 	{

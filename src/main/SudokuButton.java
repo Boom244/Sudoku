@@ -37,6 +37,10 @@ public class SudokuButton extends JButton {
 	 * Boolean determining whether the button can have its number value changed.
 	 */
 	boolean locked;
+	
+	/**
+	 * Default button selection color.
+	 */
 	Color selectionColor = new Color(120, 154, 204);
 	
 	/**
@@ -45,7 +49,6 @@ public class SudokuButton extends JButton {
 	 * @param number The number value associated with the button.
 	 * @param displayed Boolean indicating whether the number should be displayed on the button.
 	 * @param ml SudokuMouseListener to handle mouse events for the button.
-	 * @param locked Boolean indicating whether the button is locked.
 	 */
 	public SudokuButton(int number, boolean displayed, SudokuMouseListener ml)
 	{
@@ -96,6 +99,10 @@ public class SudokuButton extends JButton {
 		this.setBackground(highlighted ? selectionColor : Color.WHITE);
 	}
 	
+	/**
+	 * Set highlight for button with custom color.
+	 * @param customColor A custom Color to highlight the button with.
+	 */
 	public void setHighlighted(Color customColor)
 	{
 		this.highlighted = true;
