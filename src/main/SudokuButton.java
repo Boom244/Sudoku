@@ -37,7 +37,7 @@ public class SudokuButton extends JButton {
 	 * Boolean determining whether the button can have its number value changed.
 	 */
 	boolean locked;
-	
+	Color selectionColor = new Color(120, 154, 204);
 	
 	/**
 	 * SudokuButton constructor.
@@ -47,7 +47,7 @@ public class SudokuButton extends JButton {
 	 * @param ml SudokuMouseListener to handle mouse events for the button.
 	 * @param locked Boolean indicating whether the button is locked.
 	 */
-	public SudokuButton(int number, boolean displayed, SudokuMouseListener ml, boolean locked)
+	public SudokuButton(int number, boolean displayed, SudokuMouseListener ml)
 	{
 		this.setPreferredSize(50,50);
 		this.setBackground(Color.WHITE);
@@ -57,7 +57,7 @@ public class SudokuButton extends JButton {
 		this.displayed = displayed;
 		this.setFocusPainted(false); //Gets rid of the dumb rectangle around the text when selected
 		this.setText(this.displayed ? Integer.toString(number) : "");
-		this.locked = locked;
+		this.locked = displayed;
 		if (locked)
 		{
 			this.setForeground(new Color(60,105,209));
@@ -93,7 +93,13 @@ public class SudokuButton extends JButton {
 	 */
 	public void setHighlighted(boolean highlighted) {
 		this.highlighted = highlighted;
-		this.setBackground(highlighted ? Color.CYAN : Color.WHITE);
+		this.setBackground(highlighted ? selectionColor : Color.WHITE);
+	}
+	
+	public void setHighlighted(Color customColor)
+	{
+		this.highlighted = true;
+		this.setBackground(customColor);
 	}
 	
 	/**
