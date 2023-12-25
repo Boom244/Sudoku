@@ -7,7 +7,15 @@ import java.awt.event.MouseEvent;
  * Inherits from SudokuMouseListener so I don't have to explicitly override all the functions of interface MouseListener again.
  */
 public class GridButtonMouseListener extends SudokuMouseListener { 
+		
+	/**
+	 * Captive button to have its highlighted status changed later on.
+	 */
+		InputGridButton captiveBtn;
+		
+		
 		/**
+		 * Constructor for GridButtonMouseListener.
 		 * @param game The Sudoku game that this GridButtonMouseListener was instantiated in.
 		 */
 		public GridButtonMouseListener(Sudoku game) {

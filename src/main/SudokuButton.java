@@ -12,13 +12,30 @@ import javax.swing.JButton;
  * Button class for a Sudoku game, extending JButton class.
  */
 public class SudokuButton extends JButton {
-
+	
+	/**
+	 * Default button font.
+	 */
 	static Font btnFont = new Font("Bahnschrift", Font.BOLD, 24);
+	/**
+	 * The <b>true</b> number value of the button.
+	 */
 	int number;
+	/**
+	 * The <b>displayed</b> number value of the button. May or may not hold parity with the true number value.
+	 */
 	int displayedNumber;
+	/**
+	 * Boolean determining whether any number is displayed on the button.
+	 */
 	boolean displayed;
-	boolean isInputBtn;
+	/**
+	 * Boolean determining whether the button is highlighted.
+	 */
 	boolean highlighted;
+	/**
+	 * Boolean determining whether the button can have its number value changed.
+	 */
 	boolean locked;
 	
 	

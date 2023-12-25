@@ -56,7 +56,7 @@ public class Sudoku {
 	SudokuButton[][] buttons; 
 	
 	/**
-	 * Integer value of solves sitting between the player & winning.
+	 * Integer value of solves sitting between the player and winning.
 	 * More resource-economical as opposed to checking manually every time a win needs verification.
 	 */
 	private int solvesUntilWin = 0; 
@@ -70,6 +70,9 @@ public class Sudoku {
 	 * The boolean that determines whether or not the game is won. Used to determine whether to sink input in an active game.
 	 */
 	private boolean gameWon;
+	/**
+	 * JFrame for the game process.
+	 */
 	private JFrame holderPanel;
 	
 	/**
@@ -84,7 +87,7 @@ public class Sudoku {
 		holderPanel.setResizable(false);
 		JPanel gamePanel = new JPanel();
 		buttons = new SudokuButton[9][9];
-		SudokuButton[] inputGridButtons = new SudokuButton[9];
+		InputGridButton[] inputGridButtons = new InputGridButton[9];
 		GridLayout gl = new GridLayout(3,3);
 		holderPanel.add(gamePanel);
 		gamePanel.setLayout(gl);
@@ -134,11 +137,15 @@ public class Sudoku {
 		holderPanel.setIconImage(toolkit.getImage("src/resources/icon.png"));
 	}
 	
+	/**
+	 * Setter function for currentCaptiveInteger.
+	 */
 	public void setCurrentCaptiveInteger(int currentCaptiveInteger) {
 		this.currentCaptiveInteger = currentCaptiveInteger;
 	}
 	
 	/**
+	 * Solve increment/decrement function.
 	 * @param increment the increment to add to solvesUntilWin. -1 backwards, 1 forwards.
 	 */
 	public void addSolves(int increment) {
@@ -200,7 +207,6 @@ public class Sudoku {
 	
 	/**
 	 * Main class. Only one line put down, only one line needed.
-	 * @param args
 	 */
 	public static void main(String[] args) {
 		new Sudoku(); //in theory no need to store it anywhere

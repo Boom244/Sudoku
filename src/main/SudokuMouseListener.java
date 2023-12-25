@@ -9,9 +9,13 @@ import java.awt.event.MouseListener;
  * Extends the MouseListener interface.
  */
 public class SudokuMouseListener implements MouseListener {
-
+	
+	/**
+	 * The Sudoku instance required for this MouseListener to access game features.
+	 */
 	Sudoku game;
-	SudokuButton captiveBtn;
+	
+	
 	
 	/**
 	 * Constructs SudokuMouseListener with reference to the Sudoku game.
